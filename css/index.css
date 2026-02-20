@@ -1,0 +1,56 @@
+:root {
+    --main-color: #A97F40;
+    --second-color: #157347;
+}
+
+body {
+    background: #141e30;
+    background: -webkit-linear-gradient(to right, #243b55, #141e30);
+    background: linear-gradient(to right, #243b55, #141e30);
+}
+
+header img {
+    width: 12%;
+}
+
+#Contact .box {
+    background: #ada996;
+    background: -webkit-linear-gradient(to right, #eaeaea, #dbdbdb, #f2f2f2, #ada996);
+    background: linear-gradient(to right, #eaeaea, #dbdbdb, #f2f2f2, #ada996);
+    border-radius: 20px;
+    width: 500px;
+    margin: auto;
+    position: relative;
+}
+
+#Contact .box i.back {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+#Contact .box h4,
+i {
+    color: var(--main-color);
+}
+
+#Search {
+    width: 320px;
+    margin: auto;
+}
+
+#Search i {
+    color: #A97F40;
+}
+
+#Results .student-table {
+    width: 100%;
+    overflow-x: auto;
+}
+
+#Results .student-table table {
+    border-radius: 5px;
+    overflow: hidden;
+    min-width: max-content;
+}

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students System</title>
+
+    <link rel="icon" href="images/logo-be01d065.png ">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/index.responsive.css">
+</head>
+
+<body>
+
+    <header class="text-center pt-5">
+        <img src="images/logo-be01d065.png" alt="">
+    </header>
+
+    <section id="Contact" class="py-5">
+        <div class="container">
+            <div class="box p-4 text-center">
+                <i class="fa-solid fa-rotate-left back d-none" onclick="forgetEdit()"></i>
+                <h4 class="mb-4">Students System</h4>
+                <form data-type="add">
+
+                    <!-- *input first name -->
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="firstName"><i class="fa-solid fa-user"></i></label>
+                        <input type="text" class="form-control" name="firstName" id="firstName"
+                            required autocomplete="off" placeholder="First Name *">
+                    </div>
+                    <div class="alert alert-danger d-none" data-name="firstName" role="alert"></div>
+
+                    <!-- *input last name -->
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="lastName"><i class="fa-solid fa-user"></i></label>
+                        <input type="text" class="form-control" name="lastName" id="lastName" required autocomplete="off" placeholder="Last Name *">
+                    </div>
+                    <div class="alert alert-danger d-none" data-name="lastName" role="alert"></div>
+
+                    <!-- *input email -->
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="email"><i class="fa-solid fa-envelope"></i></label>
+                        <input type="text" class="form-control" name="email" id="email" required autocomplete="off" placeholder="Email *">
+                    </div>
+                    <div class="alert alert-danger d-none" data-name="email" role="alert"></div>
+
+                    <!-- *input Age -->
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="Age"><i class="fa-solid fa-hashtag"></i></label>
+                        <input type="text" class="form-control" name="age" id="Age" required autocomplete="off" placeholder="Age *">
+                    </div>
+                    <div class="alert alert-danger d-none" data-name="age" role="alert"></div>
+
+                    <!-- *input Phone -->
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="phone"><i class="fa-solid fa-mobile-button"></i></label>
+                        <input type="text" class="form-control" name="phone" id="phone" required autocomplete="off" placeholder="Phone *">
+                    </div>
+                    <div class="alert alert-danger d-none" data-name="phone" role="alert"></div>
+
+                    <button type="submit" class="btn btn-success w-100">Add Student</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="Search" class="mb-5">
+        <div class="container">
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="searchele"><i class="fa-solid fa-magnifying-glass"></i></label>
+                <input type="text" class="form-control" name="search" id="searchele" placeholder="Search.....">
+            </div>
+        </div>
+    </section>
+
+    <section id="Results" class="pb-5">
+        <div class="container">
+            <div class="student-table">
+                <div class="alert alert-warning text-center d-none w-100">There are no student</div>
+                <table class="table table-dark table-striped table-hover" >
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Option</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-light">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="js/function.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/bootstrap.js"></script>
+</body>
+
+</html>
