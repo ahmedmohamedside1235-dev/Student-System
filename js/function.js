@@ -1,4 +1,4 @@
-function getData(id) {
+    function getData(id) {
     let newStudent = { id: id };
     inputs.forEach(input => {
         let name = input.name;
@@ -220,6 +220,7 @@ function editStudents() {
     btnTable.forEach(btn => {
         btn.disabled = false;
     })
+    iconReset.classList.add("d-none");
 }
 
 //* reset form
@@ -228,7 +229,8 @@ function forgetEdit() {
     let btnTable = document.querySelectorAll("#Results .student-table button");
     btnTable.forEach(btn => {
         btn.disabled = false;
-    })
+    });
+    iconReset.classList.add("d-none");
 }
 
 function isEmpty(data) {
