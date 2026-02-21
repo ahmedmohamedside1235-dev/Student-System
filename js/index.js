@@ -6,7 +6,7 @@ let form = document.querySelector("form"),
     tbody = document.querySelector("#Results tbody"),
     iconReset = document.querySelector(".box .back"),
     searchInput = document.querySelector("#Search input"),
-    emptyStudent = document.querySelector("#Results .student-table div.alert");
+    emptyStudent = document.querySelector("#Results div.alert");
 
 (function () {
     if (localStorage.getItem("students") == null) {
