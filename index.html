@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/index.responsive.css">
+    <script src="js/sweetAlert.js"></script>
 </head>
 
 <body>
@@ -29,36 +30,40 @@
                     <!-- *input first name -->
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="firstName"><i class="fa-solid fa-user"></i></label>
-                        <input type="text" class="form-control" name="firstName" id="firstName"
-                            required autocomplete="off" placeholder="First Name *">
+                        <input type="text" class="form-control" name="firstName" id="firstName" required
+                            autocomplete="off" placeholder="First Name *">
                     </div>
                     <div class="alert alert-danger d-none" data-name="firstName" role="alert"></div>
 
                     <!-- *input last name -->
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="lastName"><i class="fa-solid fa-user"></i></label>
-                        <input type="text" class="form-control" name="lastName" id="lastName" required autocomplete="off" placeholder="Last Name *">
+                        <input type="text" class="form-control" name="lastName" id="lastName" required
+                            autocomplete="off" placeholder="Last Name *">
                     </div>
                     <div class="alert alert-danger d-none" data-name="lastName" role="alert"></div>
 
                     <!-- *input email -->
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="email"><i class="fa-solid fa-envelope"></i></label>
-                        <input type="text" class="form-control" name="email" id="email" required autocomplete="off" placeholder="Email *">
+                        <input type="text" class="form-control" name="email" id="email" required autocomplete="off"
+                            placeholder="Email *">
                     </div>
                     <div class="alert alert-danger d-none" data-name="email" role="alert"></div>
 
                     <!-- *input Age -->
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="Age"><i class="fa-solid fa-hashtag"></i></label>
-                        <input type="text" class="form-control" name="age" id="Age" required autocomplete="off" placeholder="Age *">
+                        <input type="number" min="10" max="100" class="form-control" name="age" id="Age" required
+                            autocomplete="off" placeholder="Age *">
                     </div>
                     <div class="alert alert-danger d-none" data-name="age" role="alert"></div>
 
                     <!-- *input Phone -->
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="phone"><i class="fa-solid fa-mobile-button"></i></label>
-                        <input type="text" class="form-control" name="phone" id="phone" required autocomplete="off" placeholder="Phone *">
+                        <input type="text" class="form-control" name="phone" id="phone" required autocomplete="off"
+                            placeholder="Phone *">
                     </div>
                     <div class="alert alert-danger d-none" data-name="phone" role="alert"></div>
 
@@ -81,7 +86,7 @@
         <div class="container">
             <div class="alert alert-warning text-center d-none">There are no student</div>
             <div class="student-table">
-                <table class="table table-dark table-striped table-hover" >
+                <table class="table table-dark table-striped table-hover">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -100,8 +105,7 @@
             </div>
         </div>
     </section>
-
-
+    
     <script src="js/function.js"></script>
     <script src="js/index.js"></script>
     <script src="js/bootstrap.js"></script>

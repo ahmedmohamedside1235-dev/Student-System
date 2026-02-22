@@ -1,4 +1,4 @@
-    function getData(id) {
+function getData(id) {
     let newStudent = { id: id };
     inputs.forEach(input => {
         let name = input.name;
@@ -19,7 +19,7 @@ function showStudent(student) {
             <td>${student.phone}</td>
             <td>
                 <button class="btn btn-info text-light" onclick="insertStudentIntoForm(${student.id})" ><i class="fa-solid fa-pen-to-square text-light"></i> Edit</button>
-                <button class="btn btn-danger" onclick="deletStudent(${student.id})"><i class="fa-solid fa-trash text-light"></i> Delete</button>
+                <button class="btn btn-danger" onclick="fireAlert(${student.id})"><i class="fa-solid fa-trash text-light"></i> Delete</button>
             </td>
         </tr>
 
@@ -144,14 +144,11 @@ function resetForm() {
 //* update local storage
 function updateLocalStorage() {
     localStorage.setItem("students", JSON.stringify(students));
-    localStorage.setItem("id",id);
+    localStorage.setItem("id", id);
 }
 
 //* Delet student 
 function deletStudent(id) {
-    if (!confirm("Are you sure")) {
-        return;
-    }
     students = students.filter(student => student.id != id);
     updateLocalStorage();
     tbody.querySelector(`tr[data-index = "${id}"]`).remove();
@@ -211,7 +208,7 @@ function editStudents() {
         <td>${student.phone}</td>
         <td>
             <button class="btn btn-info text-light" onclick="insertStudentIntoForm(${student.id})" ><i class="fa-solid fa-pen-to-square text-light"></i> Edit</button>
-            <button class="btn btn-danger" onclick="deletStudent(${student.id})"><i class="fa-solid fa-trash text-light"></i> Delete</button>
+            <button class="btn btn-danger" onclick="fireAlert(${student.id})"><i class="fa-solid fa-trash text-light"></i> Delete</button>
         </td>
     `
     resetForm();
@@ -241,3 +238,46 @@ function isEmpty(data) {
     }
 }
 
+function fireAlert(id) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger"
+        },
+        buttonsStyling: false
+    });
+    swalWithBootstrapButtons.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        buttonsStyling: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+        background: "#141e30",
+        color: "#fff"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            deletStudent(id);
+            swalWithBootstrapButtons.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+                background: "#141e30",
+                color: "#0bf387"
+            });
+        } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire({
+                title: "Cancelled",
+                text: "Your imaginary file is safe :)",
+                icon: "error",
+                background: "#141e30",
+                color: "#fff"
+            });
+        }
+    });
+}
