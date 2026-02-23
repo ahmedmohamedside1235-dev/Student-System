@@ -45,7 +45,7 @@ function assignRegex(inputName) {
     switch (inputName) {
         case "firstName":
         case "lastName":
-            regex = /^[A-Za-z\s]{3,}$/;
+            regex = /^(\s)*[A-Za-z]{3,}(\s)*$/;
             return regex;
 
         case "email":
