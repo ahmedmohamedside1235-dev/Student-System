@@ -22,7 +22,7 @@
 
     <section id="Contact" class="py-5">
         <div class="container">
-            <div class="box p-4 text-center">
+            <div class="box p-4 text-center position-relative">
                 <i class="fa-solid fa-rotate-left back d-none" onclick="forgetEdit()"></i>
                 <h4 class="mb-4">Students System</h4>
                 <form data-type="add">
@@ -65,10 +65,13 @@
                         <input type="text" class="form-control" name="phone" id="phone" required autocomplete="off"
                             placeholder="Phone *">
                     </div>
-                    <div class="alert alert-danger d-none" data-name="phone" role="alert"></div>
+                    <div class="alert alert-danger d-none d-lg-none" data-name="phone" role="alert"></div>
 
                     <button type="submit" class="btn btn-success w-100">Add Student</button>
                 </form>
+                <div class=" d-none clear">
+                    <button class="btn ms-auto btn-success" onclick="resetForm()">Clear</button>
+                </div>
             </div>
         </div>
     </section>
@@ -105,10 +108,25 @@
             </div>
         </div>
     </section>
-    
+
+    <div class="delete">
+        <div class="box py-4 px-1">
+            <img src="images/delete.gif" class="img-fluid " alt="">
+            <h3 id="head">Are you sure?</h3>
+            <p>You won't be able to revert this!</p>
+            <div class="buttons mx-auto d-flex ">
+                <button class="btn d-none me-3 btn-success save" onclick="editStudents(),hidepopup()"> Save </button>
+                <button class="btn btn-danger me-3 delete"> Yes, delete it!</button>
+                <button class="btn btn-danger me-3 d-none dontSave">Don't save</button>
+                <button class="btn cancel btn-secondary text-light cancel" onclick="hidepopup()"> No, cancel</button>
+            </div>
+        </div>
+    </div>
+
     <script src="js/function.js"></script>
     <script src="js/index.js"></script>
     <script src="js/bootstrap.js"></script>
 </body>
+
 
 </html>

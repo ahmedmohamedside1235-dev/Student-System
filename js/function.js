@@ -19,7 +19,7 @@ function showStudent(student) {
             <td>${student.phone}</td>
             <td>
                 <button class="btn btn-info text-light" onclick="insertStudentIntoForm(${student.id})" ><i class="fa-solid fa-pen-to-square text-light"></i> Edit</button>
-                <button class="btn btn-danger" onclick="fireAlert(${student.id})"><i class="fa-solid fa-trash text-light"></i> Delete</button>
+                <button class="btn btn-danger" onclick="showpopup(${student.id})"><i class="fa-solid fa-trash text-light"></i> Delete</button>
             </td>
         </tr>
 
@@ -38,6 +38,7 @@ function showStudents(students) {
 function showError(messageError, input) {
     messageError.classList.remove("d-none");
     input.classList.add("is-invalid");
+    input.classList.add("valid");
 }
 
 function assignRegex(inputName) {
@@ -101,6 +102,8 @@ function checkValidateInput(input) {
     else {
         messageError.classList.add("d-none");
         input.classList.add("is-valid");
+        input.classList.add("success");
+        input.classList.remove("valid");
         input.classList.remove("is-invalid");
     }
 
@@ -118,11 +121,16 @@ function convertToAdd() {
 
 //* convert form to Edit 
 function convertToEdit(id) {
+    let btnclearInput = btnClear.querySelector("button");
     form.dataset.type = "edit";
     form.setAttribute("data-student-index", id);
     btn.textContent = "Edit Student";
+
     btn.classList.remove("btn-success");
     btn.classList.add("btn-info", "text-light");
+
+    btnclearInput.classList.remove("btn-success");
+    btnclearInput.classList.add("btn-info", "text-light");
 
     let html = document.querySelector("html");
     html.style.setProperty("--main-color", "#0dcaf0");
@@ -134,8 +142,22 @@ function resetForm() {
     inputs.forEach(input => {
         input.classList.remove("is-invalid");
         input.classList.remove("is-valid");
+        input.classList.remove("success");
+        input.classList.remove("valid");
         input.parentElement.nextElementSibling.classList.add("d-none");
     })
+    btnClear.classList.add("d-lg-none");
+    btnClear.classList.remove("d-lg-flex");
+    iconReset.classList.add("d-none");
+
+    let btnTable = document.querySelectorAll("#Results .student-table button");
+    btnTable.forEach(btn => {
+        btn.disabled = false;
+    })
+
+    let btnclearInput = btnClear.querySelector("button");
+    btnclearInput.classList.add("btn-success");
+    btnclearInput.classList.remove("btn-info", "text-light");
 
     convertToAdd();
 }
@@ -151,7 +173,8 @@ function updateLocalStorage() {
 function deletStudent(id) {
     students = students.filter(student => student.id != id);
     updateLocalStorage();
-    tbody.querySelector(`tr[data-index = "${id}"]`).remove();
+    let select = tbody.querySelector(`tr[data-index = "${id}"]`) ?? undefined;
+    select?.remove();
     isEmpty(students);
 }
 
@@ -190,7 +213,6 @@ function addStudent() {
 
 //* Edit Student
 function editStudents() {
-
     let currentId = form.dataset.studentIndex,
         TrEle = document.querySelector(`tr[data-index="${currentId}"]`),
         student = getData(currentId),
@@ -208,7 +230,7 @@ function editStudents() {
         <td>${student.phone}</td>
         <td>
             <button class="btn btn-info text-light" onclick="insertStudentIntoForm(${student.id})" ><i class="fa-solid fa-pen-to-square text-light"></i> Edit</button>
-            <button class="btn btn-danger" onclick="fireAlert(${student.id})"><i class="fa-solid fa-trash text-light"></i> Delete</button>
+            <button class="btn btn-danger" onclick="showpopup(${student.id})"><i class="fa-solid fa-trash text-light"></i> Delete</button>
         </td>
     `
     resetForm();
@@ -216,8 +238,15 @@ function editStudents() {
     let btnTable = document.querySelectorAll("#Results .student-table button");
     btnTable.forEach(btn => {
         btn.disabled = false;
-    })
+    });
     iconReset.classList.add("d-none");
+
+    TrEle.classList.add("table-success");
+    TrEle.classList.remove("table-light");
+    setTimeout(function () {
+        TrEle.classList.remove("table-success");
+        TrEle.classList.add("table-light");
+    }, 1500);
 }
 
 //* reset form
@@ -230,6 +259,7 @@ function forgetEdit() {
     iconReset.classList.add("d-none");
 }
 
+//* show alert if data empty or not found
 function isEmpty(data) {
     if (data.length === 0) {
         emptyStudent.classList.remove("d-none");
@@ -238,46 +268,84 @@ function isEmpty(data) {
     }
 }
 
-function fireAlert(id) {
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: "btn btn-success",
-            cancelButton: "btn btn-danger"
-        },
-        buttonsStyling: false
+function showpopup(id) {
+    popupDelete.classList.add("active");
+    btnDelete.addEventListener("click", function () {
+        deletStudent(id);
+        hidepopup();
+        setTimeout(function () {
+            showConfirm();
+        }, 500);
     });
-    swalWithBootstrapButtons.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        buttonsStyling: true,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true,
-        background: "#141e30",
-        color: "#fff"
-    }).then((result) => {
-        if (result.isConfirmed) {
-            deletStudent(id);
-            swalWithBootstrapButtons.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success",
-                background: "#141e30",
-                color: "#0bf387"
-            });
-        } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
-            swalWithBootstrapButtons.fire({
-                title: "Cancelled",
-                text: "Your imaginary file is safe :)",
-                icon: "error",
-                background: "#141e30",
-                color: "#fff"
-            });
-        }
+}
+
+function showConfirm() {
+    let header = popupDelete.querySelector("#head"),
+        parEle = popupDelete.querySelector("p"),
+        img = popupDelete.querySelector("img"),
+        btnSave = popupDelete.querySelector(".save");
+    btnSave.classList.add("d-none");
+    header.textContent = "Deleted!";
+    parEle.textContent = "Your file has been deleted"
+    btnCancel.textContent = "OK";
+    btnCancel.classList.add("btn-success");
+    img.setAttribute("src", "images/correct.gif");
+    btnDelete.classList.add("d-none");
+    showpopup();
+}
+
+function hidepopup() {
+    popupDelete.classList.remove("active");
+    setTimeout(function () {
+        resetPopup();
+    }, 400);
+}
+
+function resetPopup() {
+    let header = popupDelete.querySelector("#head"),
+        parEle = popupDelete.querySelector("p"),
+        img = popupDelete.querySelector("img"),
+        btnSave = popupDelete.querySelector(".save"),
+        btnDontSave = popupDelete.querySelector(".dontSave");
+    btnSave.classList.add("d-none")
+    header.textContent = "Are you sure?";
+    parEle.textContent = "You won't be able to revert this!"
+    btnCancel.textContent = "No, cancel";
+    img.setAttribute("src", "images/delete.gif");
+    header.classList.remove("mb-4");
+    btnDelete.classList.remove("d-none");
+    btnDelete.classList.remove("d-none");
+    btnDontSave.classList.add("d-none");
+    parEle.classList.remove("d-none");
+};
+
+function showConfirmEdit() {
+    let header = popupDelete.querySelector("#head"),
+        parEle = popupDelete.querySelector("p"),
+        img = popupDelete.querySelector("img"),
+        btnSave = popupDelete.querySelector(".save"),
+        btnDontSave = popupDelete.querySelector(".dontSave");
+    btnSave.classList.remove("d-none");
+    header.textContent = "Do you want to save the changes?";
+    header.classList.add("mb-4");
+    btnDelete.classList.add("d-none");
+    btnDontSave.classList.remove("d-none");
+    parEle.classList.add("d-none");
+    btnCancel.textContent = "cancel";
+    img.setAttribute("src", "images/edit.gif");
+
+    //* reset form
+    btnDontSave.addEventListener("click", function () {
+        resetForm();
+        hidepopup();
+
+        //* remove disable from input
+        let btnTable = document.querySelectorAll("#Results .student-table button");
+        btnTable.forEach(btn => {
+            btn.disabled = false;
+        });
     });
+
+    //* show popup
+    showpopup();
 }

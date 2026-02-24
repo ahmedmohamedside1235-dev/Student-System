@@ -6,7 +6,11 @@ let form = document.querySelector("form"),
     tbody = document.querySelector("#Results tbody"),
     iconReset = document.querySelector(".box .back"),
     searchInput = document.querySelector("#Search input"),
-    emptyStudent = document.querySelector("#Results .container div.alert");
+    emptyStudent = document.querySelector("#Results .container div.alert"),
+    popupDelete = document.querySelector("div.delete"),
+    btnDelete = popupDelete.querySelector(".box .buttons .delete"),
+    btnCancel = popupDelete.querySelector(".box .buttons .cancel"),
+    btnClear = document.querySelector(".box .clear");
 
 (function () {
     if (localStorage.getItem("students") == null) {
@@ -35,7 +39,7 @@ form.addEventListener("submit", (e) => {
     if (form.dataset.type == "add") {
         addStudent();
     } else {
-        editStudents();
+        showConfirmEdit();
     }
 
 });
@@ -43,7 +47,14 @@ form.addEventListener("submit", (e) => {
 inputs.forEach(input => {
     input.addEventListener("blur", () => {
         checkValidateInput(input);
-    })
+    });
+});
+
+inputs.forEach(input => {
+    input.addEventListener("focus", () => {
+        btnClear.classList.remove("d-lg-none");
+        btnClear.classList.add("d-lg-flex");
+    });
 });
 
 

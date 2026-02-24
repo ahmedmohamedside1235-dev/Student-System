@@ -11,6 +11,11 @@
     #Search {
         max-width: 260px;
     }
+
+    div.delete .box {
+        max-width: 90%;
+        margin: auto;
+    }
 }
 
 @media (min-width: 371px) and (max-width: 1300px) {}
@@ -41,6 +46,10 @@
     #Search {
         max-width: 330px;
     }
+
+    div.delete .box {
+        max-width: 100%;
+    }
 }
 
 @media (min-width: 992px) and (max-width: 1300px) {
@@ -54,6 +63,10 @@
 
     #Search {
         max-width: 350px;
+    }
+
+    div.delete .box {
+        width: 550px;
     }
 }
 
